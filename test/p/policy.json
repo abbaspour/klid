@@ -1,0 +1,40 @@
+{
+  "ds" : [
+    {
+      "name" : "my-json-ds",
+      "module" : "json",
+      "config" : {
+        "path" : "../../test/p/users"
+      }
+    }
+  ],
+
+  "auth" : [
+    {
+      "name" : "my-basic-auth-json",
+      "module" : "http-basic",
+      "ds" : "my-json-ds",
+      "config": {}
+    }
+  ],
+
+  "realm" : [
+    {
+      "name" : "my-realm-internet-facing",
+      "auth" : "my-basic-auth-json",
+      "default" : true
+    }
+  ],
+
+  "statement" : [
+    {
+      "effect": "allow",
+      "resource" : "/$module/$group"
+    }
+  ],
+
+  "include" : [
+    "sub-policy.json"
+  ]
+
+}
