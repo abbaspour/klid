@@ -6,6 +6,13 @@
       "config" : {
         "path" : "../../test/p/users"
       }
+    },
+    {
+      "name" : "my-ldap-ds",
+      "module" : "ldap",
+      "config" : {
+        "path" : "../../test/p/users"
+      }
     }
   ],
 
@@ -14,6 +21,12 @@
       "name" : "my-basic-auth-json",
       "module" : "http-basic",
       "ds" : "my-json-ds",
+      "config": {}
+    },
+    {
+      "name" : "my-basic-auth-ldap",
+      "module" : "http-basic",
+      "ds" : "my-ldap-ds",
       "config": {}
     }
   ],

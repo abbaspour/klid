@@ -163,11 +163,12 @@ function addAuth(auth) {
 
     let authMod;
     try {
-        authMod = require(__dirname + '/auth/auth-' + module);
+        authMod = new(require(__dirname + '/auth/auth-' + module))();
     } catch (e) {
         console.warn(`skipping Auth ${name}. unable to load module: ${module}`);
         return;
     }
+    authMod['name'] = name;
 
     let config = auth['config'];
     try {
@@ -231,7 +232,7 @@ function addRealm(realm) {
         return;
     }
 
-    realm['auth'] = auth;
+    realm['authMod'] = auth;
 
     loadedRealm[name] = realm;
 
@@ -320,8 +321,9 @@ function evaluate(request) {
         console.log(`matched ${url} against ${s}`);
         let realm = s['realm'];
         if(_.isUndefined(realm)) continue;
-        let authMod = realm['auth'];
+        let authMod = realm['authMod'];
         if(_.isUndefined(authMod)) continue;
+        console.log('auth module to use: ' + JSON.stringify(authMod));
         let attributes = authMod.authenticate(request);
         if(attributes == null)
             return null;
@@ -419,4 +421,12 @@ const m = {
     }
 };
 
-module.exports = m;
+module.exports = {
+    load : addFile,
+    addFile : path => {
+        if (_.isUndefined(path)) path = 'policy.json';
+        addFile(path);
+    },
+    authenticate : evaluate,
+    listen : startServer
+};
