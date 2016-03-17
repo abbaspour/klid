@@ -4,9 +4,7 @@ const _ = require('lodash');
 
 const AUTHORIZATION_TYPE = "Basic ";
 
-let ds = null;
-
-function httpBasicAuthenticate(request) {
+function httpBasicAuthenticate(ds, request) {
     let headers = request.headers;
     let method = request.method;
     let url = request.url;
@@ -43,31 +41,29 @@ function httpBasicAuthenticate(request) {
     return attributes;
 }
 
-function setMyDataStore(datastore) {
-    ds = datastore;
-}
+function  m() {
 
-const  m = {
+    let ds;
 
     /**
      * initiates a module with given config
      * @param {object} config to init module from
      */
-    init : function(config) {
+    this.init = function(config) {
         console.log('init http-basic auth with config: ' + config);
-    },
+    };
 
-    setDataStore : function (ds) {
-        setMyDataStore(ds);
-    },
+    this.setDataStore = function (ds) {
+        this.ds = ds;
+    };
 
     /**
      * validate http call by looking at http attributes and fetching user from ds
      * @param {object} request http request with headers
      */
-    authenticate : function(request) {
-        return httpBasicAuthenticate(request);
+    this.authenticate = function(request) {
+        return httpBasicAuthenticate(this.ds, request);
     }
-};
+}
 
 module.exports = m;

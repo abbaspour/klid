@@ -2,7 +2,7 @@ Building
 ========
 
 ```bash
-npm install 
+npm install --production 
 ```
 
 Running
