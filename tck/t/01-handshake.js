@@ -1,9 +1,9 @@
 'use strict';
 
-const request = require('request');
-const net = require('net');
+var request = require('request');
+var net = require('net');
 
-const test = require('tape');
+var test = require('tape');
 
 /*
 test('nginx is up', function (t) {
