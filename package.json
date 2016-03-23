@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "description": "Klid API Gateway AA",
   "main": "src/klid.js",
-  "man": [ "./man/klid.1" ],
+  "man": [
+    "./man/klid.1"
+  ],
   "directories": {
-    "man" : "man"
+    "man": "man"
   },
   "scripts": {
     "echo": "node --harmony src/echo-server.js",
@@ -17,9 +19,15 @@
     "named-regexp": ">= 0.1.1"
   },
   "devDependencies": {
-    "mocha": ">= 2.4.5"
+    "mocha": ">= 2.4.5",
+    "tape": ">= 4.5.1",
+    "request" : ">= 2.69.0"
   },
   "engine": "node 0.4.1",
   "author": "Amin Abbaspour <a.abbaspour@gmail.com>",
-  "license": "GPLv3"
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abbaspour/klid"
+  }
 }
