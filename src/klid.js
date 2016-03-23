@@ -341,8 +341,9 @@ function evaluate(request) {
 
 function matches(url, statement) {
     let re = statement['re'];
-    let names = statement['names'];
     if(_.isUndefined(re)) return null;
+    let names = statement['names'];
+    re.lastIndex = 0; // http://stackoverflow.com/questions/11477415/why-does-javascripts-regex-exec-not-always-return-the-same-value
     let matched = re.exec(url);
     if(matched === null) return null;
     console.log(`matched: ${matched}`);
