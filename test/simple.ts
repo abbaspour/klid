@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-const klid = require('../src/klid');
+const klid = require('../src/index');
 const it = require('mocha/lib/mocha.js').it;
 const describe = require('mocha/lib/mocha.js').describe;
 

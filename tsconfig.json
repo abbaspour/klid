@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "experimentalDecorators": true,
+    "rootDir": ".",
+    "sourceMap": true,
+    "listFiles": true,
+    "newLine": "LF",
+    "noEmitOnError": true
+  },
+
+  "exclude": [
+    "node_modules",
+    "typings/*",
+    "typings/main/definitions/lodash/index.d.ts"
+  ],
+
+  "files": [
+    "src/index.ts",
+    "lib/named-regexp.ts",
+    "tck/lib/server.ts",
+    "tck/lib/echo-server.ts"
+  ]
+}
