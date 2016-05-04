@@ -1,10 +1,14 @@
+/// <reference path='../typings/main.d.ts' />
+
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const _ = require('lodash');
-const named = require('named-regexp').named;
-const http = require('http');
+import fs = require('fs');
+import path = require('path');
+import _ = require('lodash');
+//import named = require('../lib/named-regexp');
+import http = require('http');
+import {NamedRegexp} from '../lib/named-regexp';
+
 
 function filesInInput(input) {
     if (_.isUndefined(input)) {
@@ -284,17 +288,18 @@ function buildConditionFunction(names, text) {
     return new Function(names, text);
 }
 
+
 function namedResourceToRe(resource) {
     let slashedResource = resource.replace(/\//g, "\\/");
     let namedResource = slashedResource.replace(/\$([^\\]+)/g, "(:<$1>[^/]+)");
     console.log(`${resource} => ${namedResource}`);
-    return named( new RegExp(namedResource, 'ig'));
+    return NamedRegexp.named( new RegExp(namedResource, 'ig'));
 }
 
 function getNamesOfNamedRE(resource) {
     let namesRe = /\$([^/]+)/g;
     let names = [];
-    let match = false;
+    let match = null;
     while(match = namesRe.exec(resource)) {
         names.push(match[1]);
     }
@@ -302,7 +307,13 @@ function getNamesOfNamedRE(resource) {
 }
 
 
-function addFile(path) {
+/**
+ * @exports
+ * @param {string} path of file or folder to read policies from
+ *
+ * this function can load policy, realms, auths, data-stores, and statements
+ */
+export function addFile(path = 'policy.json') {
     let files = filesInInput(path);
     _.forEach(files, processFile);
 }
@@ -390,44 +401,35 @@ function handleSubAuthRequest(request, response) {
  * start klid is server mode. evalute and inject headers
  * @param {number} port
  */
-function startServer(port) {
+export function startServer(port) {
     let server = http.createServer(handleSubAuthRequest);
     server.listen(port);
 }
 
-const m = {
+/*
+ const m = {
 
-    /**
-     * @exports
-     * @param {string} path of file or folder to read policies from
-     *
-     * this function can load policy, realms, auths, data-stores, and statements
-     */
-    load: function (path) {
-        if (_.isUndefined(path)) path = 'policy.json';
-        addFile(path);
-    },
+ load: function (path) {
+ if (_.isUndefined(path)) path = 'policy.json';
+ addFile(path);
+ },
 
-    /**
-     * @exports
-     * @param {object} request
-     * @return {map} list of attributes, null if not authenticated
-     */
-    authenticate: function (request) {
-        return evaluate(request);
-    },
+ authenticate: function (request) {
+ return evaluate(request);
+ },
 
-    listen : function(port) {
-        startServer(port);
-    }
-};
+ listen : function(port) {
+ startServer(port);
+ }
+ };
 
-module.exports = {
-    load : addFile,
-    addFile : path => {
-        if (_.isUndefined(path)) path = 'policy.json';
-        addFile(path);
-    },
-    authenticate : evaluate,
-    listen : startServer
-};
+ module.exports = {
+ load : addFile,
+ addFile : path => {
+ if (_.isUndefined(path)) path = 'policy.json';
+ addFile(path);
+ },
+ authenticate : evaluate,
+ listen : startServer
+ };
+ */

@@ -1,7 +1,7 @@
 'use strict';
 
-const http = require('http');
-const os = require('os');
+import http = require('http');
+import os = require('os');
 
 const port = 9090;
 

@@ -1,9 +1,29 @@
 Building 
 ========
 
+Install Dependencies 
+--------------------
+
 ```bash
 npm install --production 
 ```
+
+Install Typings
+---------------
+
+```bash
+npm install -g typescript@next
+typings install node --ambient
+typings install lodash
+```
+
+Compile TypeScript to JavaScript
+--------------------------------
+
+```bash
+tsc
+```
+
 
 Running
 =======

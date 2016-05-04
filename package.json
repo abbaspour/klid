@@ -1,26 +1,31 @@
 {
   "name": "klid",
-  "version": "0.1.0",
+  "version": "0.1.5",
   "description": "Klid API Gateway AA",
-  "main": "src/klid.js",
+  "main": "src/index.js",
   "man": [
     "./man/klid.1"
   ],
   "directories": {
-    "man": "man"
+    "man": "man",
+    "lib": "lib",
+    "src": "src"
   },
   "scripts": {
-    "echo": "node --harmony src/echo-server.js",
-    "start": "node --harmony server.js",
+    "prepublish": "tsc",
+    "echo": "node --harmony tck/lib/echo-server.js",
+    "start": "node --harmony tck/lib/server.js",
     "test": "mocha"
   },
   "dependencies": {
-    "lodash": ">= 4.5.1",
-    "named-regexp": ">= 0.1.1"
+    "lodash": ">= 4.5.1"
   },
   "devDependencies": {
+    "typescript": ">= 1.8.9",
+    "typings": ">= 1.9.0",
     "mocha": ">= 2.4.5",
     "tape": ">= 4.5.1",
+    "typescript-require": ">= 0.2.9-1",
     "request" : ">= 2.69.0"
   },
   "engine": "node 0.4.1",
